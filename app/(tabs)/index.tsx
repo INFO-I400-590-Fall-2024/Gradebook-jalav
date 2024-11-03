@@ -6,7 +6,14 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import FirebaseExample from '@/components/FirebaseExample';
 
+import { useContext } from 'react';
+import { GradebookContext } from '@/components/GradebookContext';
+import { TextInput } from 'react-native';
+
+
 export default function HomeScreen() {
+  const { threshold, setThreshold } = useContext(GradebookContext);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -16,7 +23,25 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
-      <FirebaseExample/>
+<TextInput
+  style={{
+    width: '80%',
+    padding: 10,
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    backgroundColor: '#f9f9f9',
+    fontSize: 16,
+    color: '#333',
+  }}
+  placeholder="Set A+ Threshold"
+  placeholderTextColor="#888"
+  value={String(threshold)}
+  onChangeText={text => setThreshold(Number(text))}
+/>
+
+    <FirebaseExample/>
     </ParallaxScrollView>
   );
 }
