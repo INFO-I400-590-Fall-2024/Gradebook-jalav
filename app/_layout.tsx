@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
-import { GradebookContext } from '@/components/GradebookContext'
+import { GradebookContext, GradebookProvider } from '@/components/GradebookContext'
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -29,14 +29,15 @@ export default function RootLayout() {
   }
 
   return (
-    <GradebookContext.Provider value={{threshold, setThreshold}}>
-
+    <GradebookProvider>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>
-    </GradebookContext.Provider>
+
+    </GradebookProvider>
+
   );
 }
